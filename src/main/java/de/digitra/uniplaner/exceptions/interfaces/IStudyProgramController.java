@@ -1,4 +1,4 @@
-package de.digitra.uniplaner.interfaces;
+package de.digitra.uniplaner.exceptions.interfaces;
 
 import de.digitra.uniplaner.domain.StudyProgram;
 import de.digitra.uniplaner.exceptions.BadRequestException;

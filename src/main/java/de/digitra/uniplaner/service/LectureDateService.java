@@ -2,7 +2,7 @@ package de.digitra.uniplaner.service;
 
 
 import de.digitra.uniplaner.domain.LectureDate;
-import de.digitra.uniplaner.interfaces.ILectureDateService;
+import de.digitra.uniplaner.exceptions.interfaces.ILectureDateService;
 import de.digitra.uniplaner.repository.LectureDateRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
