@@ -1,4 +1,4 @@
-package de.digitra.uniplaner.interfaces;
+package de.digitra.uniplaner.exceptions.interfaces;
 
 import de.digitra.uniplaner.domain.Lecture;
 import de.digitra.uniplaner.exceptions.BadRequestException;
@@ -12,14 +12,16 @@ import javax.validation.Valid;
 import java.util.List;
 
 public interface ILectureController {
+
+
     /**
-     * {@code POST  /lectures} : Methode erstellt eine Ressource vom Typ Lecture.
-     *
-     * @param lecture Instanz von Lecture, die am Server erstellt werden soll.
-     * Parameter lecture ist nicht zulässig, falls er bereits eine Id hat, die nicht null ist.
-     * @return Eine {@link ResponseEntity} mit Status Code {@code 200 (OK)} und im Body die erstellte Ressource.
-     * @throws BadRequestException falls lecture nicht zulässig ist.
-     *
+      {@code POST  /lectures} : Methode erstellt eine Ressource vom Typ Lecture.
+
+      @param lecture Instanz von Lecture, die am Server erstellt werden soll.
+      Parameter lecture ist nicht zulässig, falls er bereits eine Id hat, die nicht null ist.
+      @return Eine {@link ResponseEntity} mit Status Code {@code 200 (OK)} und im Body die erstellte Ressource.
+      @throws BadRequestException falls lecture nicht zulässig ist. !
+
      */
     @PostMapping
     ResponseEntity<Lecture> createLecture(@RequestBody Lecture lecture) throws BadRequestException;
@@ -31,7 +33,7 @@ public interface ILectureController {
      *                Diese Instanz enthält die aktuellen Werte.
      * Der Parameter lecture ist nicht zulässig, falls er eine Id mit dem Wert null hat.
      * @return Eine {@link ResponseEntity} mit Status Code {@code 200 (OK)} and im Body die aktualisierte Ressource.
-     * @throws BadRequestException wird ausgelöst, falls lecture nicht zulässig ist.
+     * @throws BadRequestException wird ausgelöst, falls lecture nicht zulässig ist. !
      */
     @PutMapping
     ResponseEntity<Lecture> updateLecture(@RequestBody Lecture lecture) throws BadRequestException;

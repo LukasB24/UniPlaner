@@ -2,7 +2,7 @@ package de.digitra.uniplaner.service;
 
 
 import de.digitra.uniplaner.domain.Semester;
-import de.digitra.uniplaner.interfaces.ISemesterService;
+import de.digitra.uniplaner.exceptions.interfaces.ISemesterService;
 import de.digitra.uniplaner.repository.SemesterRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
