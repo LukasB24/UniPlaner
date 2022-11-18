@@ -1,25 +1,31 @@
 package de.digitra.uniplaner.controller;
 
+import de.digitra.uniplaner.domain.Lecture;
+import de.digitra.uniplaner.domain.Lecturer;
 import de.digitra.uniplaner.exceptions.BadRequestException;
 import de.digitra.uniplaner.exceptions.ResourceNotFoundException;
 import de.digitra.uniplaner.exceptions.interfaces.ILectureController;
+import de.digitra.uniplaner.service.LectureService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/lectures")
 public class LectureController implements ILectureController {
 
-
+    @Autowired
+    private LectureService lectureService;
 
 
     @Override
     public ResponseEntity<de.digitra.uniplaner.domain.Lecture> createLecture(de.digitra.uniplaner.domain.Lecture lecture) throws BadRequestException {
         if(lecture.getId() != null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            throw new BadRequestException("Lecture ID must be null");
         }
         return new ResponseEntity<>(lecture, HttpStatus.OK);
     }
@@ -29,39 +35,45 @@ public class LectureController implements ILectureController {
     @Override
     public ResponseEntity<de.digitra.uniplaner.domain.Lecture> updateLecture(de.digitra.uniplaner.domain.Lecture lecture) throws BadRequestException {
         if(lecture.getId() == null){
-            return new ResponseEntity<>((HttpStatus.BAD_REQUEST));
+            throw new BadRequestException("Lecture ID must not be null");
         }
-        return new ResponseEntity<>(lecture, HttpStatus.OK);
+        //Lecture target = lectureService.findOne(lecture.getId()).get();
+        return new ResponseEntity<>(lectureService.save(lecture), HttpStatus.OK);
     }
 
-    /**
-     * {@code PUT  /lectures/:id} : aktualisiert eine existierende Ressource vom Typ Lecture.
-     *
-     * @param id             Id der Ressource vom Typ Lecture, die am Server aktualisiert werden soll.
-     * @param lectureDetails Instanz von Lecture, die am Server aktualisiert werden soll.
-     *                       Diese Instanz enthält die aktuellen Werte.
-     * @return Eine {@link ResponseEntity} mit Status Code {@code 200 (OK)} and im Body die aktualisierte Ressource.
-     * @throws ResourceNotFoundException wird ausgelöst, falls die Ressource mit der angegebenen Id nicht gefunden werden konnte.
-     */
 
     @Override
     public ResponseEntity<de.digitra.uniplaner.domain.Lecture> updateLecture(Long id, de.digitra.uniplaner.domain.Lecture lectureDetails) throws ResourceNotFoundException {
-        if(lectureDetails.getId().)
-        return null;
+        Optional<Lecture> found = lectureService.findOne(id);
+        if(!found.isPresent()) {
+            throw new ResourceNotFoundException("Resource not found");
+        }
+        Lecture target = lectureService.findOne(id).get();
+        return new ResponseEntity<>(lectureService.save(target), HttpStatus.OK);
     }
+
+
 
     @Override
     public ResponseEntity<List<de.digitra.uniplaner.domain.Lecture>> getAlllectures() {
-        return null;
+        return new ResponseEntity<>(lectureService.findAll(), HttpStatus.OK);
     }
+
+
 
     @Override
     public ResponseEntity<de.digitra.uniplaner.domain.Lecture> getLecture(Long id) throws ResourceNotFoundException {
-        return null;
+        Optional<Lecture> found = lectureService.findOne(id);
+        if (found == null){
+            throw new ResourceNotFoundException("Resource not found");
+        }
+        return new ResponseEntity<>(found.get(), HttpStatus.OK);
     }
+
 
     @Override
     public ResponseEntity<Void> deleteLecture(Long id) {
-        return null;
+        lectureService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
