@@ -26,7 +26,7 @@ public class StudyProgramController implements IStudyProgramController {
         if (studyprogram.getId() != null){
             throw new BadRequestException("StudyProgram ID must be null");
         }
-        return new ResponseEntity<>(studyprogram, HttpStatus.OK);
+        return new ResponseEntity<>(studyProgramService.save(studyprogram), HttpStatus.OK);
     }
 
 
@@ -35,7 +35,11 @@ public class StudyProgramController implements IStudyProgramController {
         if (studyprogram.getId() == null){
             throw new BadRequestException("StudyProgram ID must not be null");
         }
-        return new ResponseEntity<>(studyProgramService.save(studyprogram),HttpStatus.OK);
+        studyProgramService.findOne(studyprogram.getId()).get().setStudyClasses(studyprogram.getStudyClasses());
+        studyProgramService.findOne(studyprogram.getId()).get().setName(studyprogram.getName());
+        studyProgramService.findOne(studyprogram.getId()).get().setShortName(studyprogram.getShortName());
+        studyProgramService.findOne(studyprogram.getId()).get().setLectures(studyprogram.getLectures());
+        return new ResponseEntity<>(studyProgramService.save(studyProgramService.findOne(studyprogram.getId()).get()),HttpStatus.OK);
     }
 
 
@@ -45,8 +49,14 @@ public class StudyProgramController implements IStudyProgramController {
         if(!studyProgramService.findOne(id).isPresent()) {
             throw new ResourceNotFoundException("StudyProgram not found");
         }
+        studyProgramService.findOne(id).get().setStudyClasses(studyprogramDetails.getStudyClasses());
+        studyProgramService.findOne(id).get().setName(studyprogramDetails.getName());
+        studyProgramService.findOne(id).get().setShortName(studyprogramDetails.getShortName());
+        studyProgramService.findOne(id).get().setLectures(studyprogramDetails.getLectures());
+
+
         //StudyProgram target = studyProgramService.findOne(id).get();
-        return new ResponseEntity<>(studyProgramService.findOne(id).get(), HttpStatus.OK);
+        return new ResponseEntity<>(studyProgramService.save(studyProgramService.findOne(id).get()), HttpStatus.OK);
     }
 
     @Override

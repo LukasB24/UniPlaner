@@ -26,7 +26,7 @@ public class LectureController implements ILectureController {
         if(lecture.getId() != null) {
             throw new BadRequestException("Lecture ID must be null");
         }
-        return new ResponseEntity<>(lecture, HttpStatus.OK);
+        return new ResponseEntity<>(lectureService.save(lecture), HttpStatus.OK);
     }
 
 
@@ -36,8 +36,17 @@ public class LectureController implements ILectureController {
         if(lecture.getId() == null){
             throw new BadRequestException("Lecture ID must not be null");
         }
+
+        lectureService.findOne(lecture.getId()).get().setLectureName(lecture.getLectureName());
+        lectureService.findOne(lecture.getId()).get().setStudyProgram(lecture.getStudyProgram());
+        lectureService.findOne(lecture.getId()).get().setStudyProgramm(lecture.getStudyProgramm());
+        lectureService.findOne(lecture.getId()).get().setModulName(lecture.getModulName());
+        lectureService.findOne(lecture.getId()).get().setDuration(lecture.getDuration());
+        lectureService.findOne(lecture.getId()).get().setLectureDates(lecture.getLectureDates());
+        lectureService.findOne(lecture.getId()).get().setLecturers(lecture.getLecturers());
+
         //Lecture target = lectureService.findOne(lecture.getId()).get();
-        return new ResponseEntity<>(lectureService.save(lecture), HttpStatus.OK);
+        return new ResponseEntity<>(lectureService.save(lectureService.findOne(lecture.getId()).get()), HttpStatus.OK);
     }
 
 
@@ -47,8 +56,16 @@ public class LectureController implements ILectureController {
         if(!found.isPresent()) {
             throw new ResourceNotFoundException("Resource not found");
         }
-        Lecture target = lectureService.findOne(id).get();
-        return new ResponseEntity<>(lectureService.save(target), HttpStatus.OK);
+
+        lectureService.findOne(id).get().setLectureName(lectureDetails.getLectureName());
+        lectureService.findOne(id).get().setStudyProgram(lectureDetails.getStudyProgram());
+        lectureService.findOne(id).get().setStudyProgramm(lectureDetails.getStudyProgramm());
+        lectureService.findOne(id).get().setModulName(lectureDetails.getModulName());
+        lectureService.findOne(id).get().setDuration(lectureDetails.getDuration());
+        lectureService.findOne(id).get().setLectureDates(lectureDetails.getLectureDates());
+        lectureService.findOne(id).get().setLecturers(lectureDetails.getLecturers());
+
+        return new ResponseEntity<>(lectureService.save(lectureService.findOne(id).get()), HttpStatus.OK);
     }
 
 
