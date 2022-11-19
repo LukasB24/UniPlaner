@@ -1,10 +1,9 @@
 package de.digitra.uniplaner.controller;
 
 import de.digitra.uniplaner.domain.Lecture;
-import de.digitra.uniplaner.domain.Lecturer;
 import de.digitra.uniplaner.exceptions.BadRequestException;
 import de.digitra.uniplaner.exceptions.ResourceNotFoundException;
-import de.digitra.uniplaner.exceptions.interfaces.ILectureController;
+import de.digitra.uniplaner.interfaces.ILectureController;
 import de.digitra.uniplaner.service.LectureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

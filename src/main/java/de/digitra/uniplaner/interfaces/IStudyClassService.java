@@ -1,4 +1,4 @@
-package de.digitra.uniplaner.exceptions.interfaces;
+package de.digitra.uniplaner.interfaces;
 
 import de.digitra.uniplaner.domain.StudyClass;
 

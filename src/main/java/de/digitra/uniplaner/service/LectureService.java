@@ -2,7 +2,7 @@ package de.digitra.uniplaner.service;
 
 
 import de.digitra.uniplaner.domain.Lecture;
-import de.digitra.uniplaner.exceptions.interfaces.ILectureService;
+import de.digitra.uniplaner.interfaces.ILectureService;
 import de.digitra.uniplaner.repository.LectureRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

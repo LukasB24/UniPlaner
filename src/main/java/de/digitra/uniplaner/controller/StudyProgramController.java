@@ -1,10 +1,9 @@
 package de.digitra.uniplaner.controller;
 
-import de.digitra.uniplaner.domain.Lecture;
 import de.digitra.uniplaner.domain.StudyProgram;
 import de.digitra.uniplaner.exceptions.BadRequestException;
 import de.digitra.uniplaner.exceptions.ResourceNotFoundException;
-import de.digitra.uniplaner.exceptions.interfaces.IStudyProgramController;
+import de.digitra.uniplaner.interfaces.IStudyProgramController;
 import de.digitra.uniplaner.service.StudyProgramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/studyprograms")
