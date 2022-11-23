@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<style>
+    body {
+  background-color: hsl(0, 0%, 94%)
+}
+
+</style>
+<head>
+  <title>dozenten</title>    
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="css/uniplaner.css">  
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+  
+</head>
+
+
+  <header>
+    <nav class="navbar navbar-dark navbar-expand-lg navbar-custom fixed-top d-flex" id="shadow-navbar">
+      <a class="navbar-brand" href="1_homepage.html">
+        <p class="navlogo"><span class="navlogo-first">Uni</span>planer</p>
+      </a>
+
+      <!--For smaller screens-->
+      <button class="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+      <!--                   -->
+
+        <ul class="navbar-nav ms-auto nav-item-custom">
+
+          <li class="nav-item active">
+            <a class="nav-link dropdown-toggle" href="verwaltung.html" id="navbarDropdown" role="button" data-toggle="dropdown" >Verwaltung</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="vorlesungen.html">Vorlesungen</a>
+              <a class="dropdown-item" href="vorlesungstermine.html">Vorlesungstermine</a>
+              <a class="dropdown-item" href="semester.html">Semester</a>
+              <a class="dropdown-item" href="dozenten.html">Dozenten</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#funktionen" >Funktionen</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#ueber-uns">Über uns</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#impressum">Impressum</a>
+          </li>
+          <li>
+            <img src="assets/StewieAvatar.png" class="rounded-circle"
+   alt="Avatar" />
+          </li>
+        </ul>       
+      </div>
+
+    </nav>
+    <!--End Navbar-->
+    </header>
+    <div class="spacing"></div>
+    <body>
+    <!--PopUp for the "Add-Button"-->
+   
+    <div class="modal" id="add">
+        <div class="modal-dialog modal-content">
+            <div class="modal-header">
+                <div class="title fw-bold">Dozent hinzufügen</div>
+                <button type="button" class="btn-close" aria-label="Close" data-toggle="modal" data-target="#add"></button>
+            </div>
+            <div class="modal-body">
+                <figure class="text-center">
+                    <p class="fw-bold">Name</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="surname">
+                    </div>
+                    <p class="fw-bold">Email</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="email">
+                    </div>
+                    <p class="fw-bold">Vorlesungen</p>
+                    <form>
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
+                                <ul class="dropdown-menu" id="course-selector">
+                                    <li><a href="#">Informatik</a></li>
+                                    <li><a href="#">Digitaltechnik</a></li>
+                                    <li><a href="#">Web Engineering</a></li>
+                                    <li><a href="#">Programmieren</a></li>
+                                    <li><a href="#">Mathematik</a></li>
+                                </ul>
+                            </div>
+                            <input type="text" class="form-control" id="lecture">
+                        </div>        
+                    </form>
+                    <p class="fw-bold">Studiengang</p>
+                    <form>
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
+                                <ul class="dropdown-menu" id="course-selector">
+                                    <li><a href="#">Informatik</a></li>
+                                    <li><a href="#">Mathematik</a></li>
+                                </ul>
+                            </div>
+                            <input type="text" class="form-control" id="studyClass">
+                        </div>        
+                    </form>
+                    
+                    <div class="d-grid gap-4 col-6 mt-3 mx-auto">
+                      <button id="submit" class="btn btn-success" type="button" data-toggle="modal" data-target="#add">Hinzufügen</button>
+                    </div>
+                    
+                </figure>
+            </div>
+        </div>
+    </div>
+    <div id="overlay"></div>
+    <!--Modal für Vorlesung bearbeiten-->
+
+    <div class="modal" id="edit">
+        <div class="modal-dialog modal-content">
+            <div class="modal-header">
+                <div class="title fw-bold">Eintrag bearbeiten</div>
+                <button type="button" class="btn-close" aria-label="Close" data-toggle="modal" data-target="#edit"></button>
+            </div>
+            <div class="modal-body">
+                <figure class="text-center">
+                    <p class="fw-bold">Name</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="floating-text-area">
+                    </div>
+                    <p class="fw-bold">Email</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="floating-text-area">
+                    </div>
+                    <p class="fw-bold">Vorlesungen</p>
+                    <form>
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
+                                <ul class="dropdown-menu" id="course-selector">
+                                    <li><a href="#">Informatik</a></li>
+                                    <li><a href="#">Digitaltechnik</a></li>
+                                    <li><a href="#">Web Engineering</a></li>
+                                    <li><a href="#">Programmieren</a></li>
+                                    <li><a href="#">Mathematik</a></li>
+                                </ul>
+                            </div>
+                            <input type="text" class="form-control" id="floating-text-area">
+                        </div>        
+                    </form>
+                    <p class="fw-bold">Studiengang</p>
+                    <form>
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
+                                <ul class="dropdown-menu" id="course-selector">
+                                    <li><a href="#">Informatik</a></li>
+                                    <li><a href="#">Mathematik</a></li>
+                                </ul>
+                            </div>
+                            <input type="text" class="form-control" id="floating-text-area">
+                        </div>        
+                    </form>
+
+                    <div class="d-grid gap-4 col-6 mt-3 mx-auto">
+                      <button class="btn btn-success" type="button" data-toggle="modal" data-target="#edit">Editieren</button>
+                    </div>
+
+                </figure>
+            </div>
+        </div>
+    </div>
+    <div id="overlay"></div>
+  
+
+    <!--Table for "Vorlesungen"-->
+    
+    <div class="container my-5 table-custom">
+        <div class="shadow-4 rounded-5 overflow-hidden">
+          <table class="table align-middle mb-0 bg-white" id="lecturerTable">
+            <thead class="headList">
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Vorlesung</th>
+                <th>Studiengang</th>
+                <th>Aktionen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <p class="fw-bold m-2">Prof. Dr. Göppert</p>
+                </td>
+                <td>
+                  <p class="mb-1">keineAhnung@mail.com</p>
+                </td>
+                
+                <td>
+                    <p class="mb-1">Digitaltechnik</p>
+                </td>
+                <td>
+                    <p class="mb-1">Informatik</p>
+                </td>
+                
+                <td>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#edit">Edit</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <p class="fw-bold m-2">Prof. Dr. Bimazubute</p>
+                </td>
+                <td>
+                    <p class="mb-1">Raimond.Bimazubute@dhbw-loerrach.de</p>
+                </td>
+                <td>
+                    <p class="mb-1">Web Engineering</p>
+                </td>
+                <td>
+                    <p class="mb-1">Informatik</p>
+                </td>
+                
+                <td>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#edit">Edit</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <p class="fw-bold m-2">Herr Burggraf</p>
+                </td>
+                <td>
+                  <p class="mb-1">keineAhnung@mail.com</p>
+                  
+                </td>
+                <td>
+                  <p class="mb-1">Programmieren</p>
+                </td>
+                <td>
+                    <p class="mb-1">Informatik</p>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#edit">Edit</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <p class="fw-bold m-2">Herr Gorny</p>
+                </td>
+                <td>
+                    <p class="mb-1" >axel.gorney@teleport.ch</p>
+                  
+                  
+                </td>
+                <td>
+                    <p class="mb-1" >Theoretische Informatik</p>
+                </td>
+                <td>
+                    <p class="mb-1">Informatik</p>
+                </td>
+                
+                <td>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#edit">Edit</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                    <p class="fw-bold m-2">Herr Stephan</p>
+                </td>
+                <td>
+                    <p class="mb-1">keineAhnung@mail.com</p>
+                </td>
+                <td>
+                    <p class="mb-1">Mathe-Analysis1</p>
+                </td>
+                <td>
+                    <p class="mb-1">Mathematik</p>
+                </td>
+                
+                <td>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#edit">Edit</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add">Dozent hinzufügen</button>
+        </div>
+      </div>
+      
+      <div class="spacing"></div>
+      <div class="spacing"></div>
+      <div class="spacing"></div>
+      
+              <footer class="footer">
+                <div class="container">
+                  <div class="row">
+                    <div class="footer-col">
+                      <h4>Zu unseren Hochschulen</h4>
+                      <ul>
+                        <li><a href="https://dhbw-loerrach.de/home" target="_blank">DHBW-Lörrach</a></li>
+                        <li><a href="https://www.dhbw-stuttgart.de/" target="_blank">DHBW-Stuttgart</a></li>
+                        <li><a href="https://www.karlsruhe.dhbw.de/startseite.html" target="_blank">DHBW-Karlsruhe</a></li>
+                        <li><a href="https://www.mannheim.dhbw.de/startseite" target="_blank">DHBW-Mannheim</a></li>
+                      </ul>
+                    </div>
+                    <div class="footer-col">
+                      <h4>Quicklinks</h4>
+                      <ul>
+                        <li><a href="https://moodle.dhbw-loerrach.de/moodle/login/index.php" target="_blank">Moodle-Lernplattform</a></li>
+                        <li><a href="https://webmail.dhbw-loerrach.de/owa/auth/logon.aspx?replaceCurrent=1&url=https%3a%2f%2fwebmail.dhbw-loerrach.de%2fowa"target="_blank">WebMail-Zugang</a></li>
+                        <li><a href="https://www.wissenschaftliche-weiterbildung.dhbw.de/"target="_blank">Wissenschaftliche Weiterbildungen</a></li>
+                        <li><a href="https://dhbw-loerrach.de/bibliothek/aktuelle-informationen"target="_blank">Bibliotheken</a></li>
+                        <li><a href="https://dhbw-loerrach.de/mensa/mensa-am-campus-hangstrasse"target="_blank">Mensa</a></li>
+                      </ul>
+                    </div>
+                    <div class="footer-col">
+                      <h4>Hilfelinks</h4>
+                      <ul>
+                        <li><a href="https://dhbw-loerrach.de/studienberatung/kurz-vorgestellt"target="_blank">Studienberatung</a></li>
+                        <li><a href="https://dhbw-loerrach.de/wohnungen"target="_blank">Zimmer und Wohnungssuche</a></li>
+                        <li><a href="https://dhbw-loerrach.de/studienkosten"target="_blank">Studienkosten & Gebühren</a></li>
+                        <li><a href="https://dhbw-loerrach.de/ansprechpersonen/mitarbeitende-der-dhbw-loerrach"target="_blank">Ansprechpersonen</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </footer>
+      <script src="js/script.js"></script>
+      </body>
+      </html>
