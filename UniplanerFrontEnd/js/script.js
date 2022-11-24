@@ -160,9 +160,9 @@ function update() {
     var target = entries[findEntry(id)];
     target.lastname = lastname;
     localStorage.setItem("entries", JSON.stringify(entries));
-
 }
-
+*/
+/*
 function deleteTarget() {
     let entries = getEntries();
     let id = document.getElementById("id").value;
@@ -231,7 +231,8 @@ function displayDetails() {
   let email = document.getElementById('email').value;
   let lecture = document.getElementById("lecture").value;
   let studyClass = document.getElementById("studyClass").value;
-
+  let entries = getEntries();
+  let id = entries[entries.length-1].id;
 
   if (!surname || !email || !lecture || !studyClass) {
     alert("The values should not be blank");
@@ -249,12 +250,12 @@ function displayDetails() {
   let cell5 = newRow.insertCell(4);
   cell5.classList.add("custom-td");
 
-  let surnameString = `<p class="fw-bold m-2">${surname}</p>`;
-  let emailString = `<p class="mb-1">${email}</p>`; // string interpoleration
-  let lectureString = `<p class="mb-1">${lecture}</p>`;
-  let studyClassString = `<p class="mb-1">${studyClass}</p>`;
-  let editButtonString = `<button type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
-  let deleteButtonString = `<button type="button" class="btn btn-danger deleteButton">Delete</button>`;
+  let surnameString = `<p id="surname${id}" class="fw-bold m-2">${surname}</p>`;
+  let emailString = `<p id="email${id}" class="mb-1">${email}</p>`; // string interpoleration
+  let lectureString = `<p id="lecture${id}" class="mb-1">${lecture}</p>`;
+  let studyClassString = `<p id="studyClass${id}" class="mb-1">${studyClass}</p>`;
+  let editButtonString = `<button id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
+  let deleteButtonString = `<button id="delete${id}" type="button" class="btn btn-danger deleteButton">Delete</button>`;
 
   cell1.innerHTML = surnameString;
   cell2.innerHTML = emailString;
