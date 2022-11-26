@@ -36,7 +36,7 @@ function Lecturer(id, lastname, email, lecture, studyClass){
 }
 
 function create() {
-    var lastname = document.getElementById("surname").value;
+    let lastname = document.getElementById("surname").value;
     let id = createID();
     let email = document.getElementById("email").value;
     let lecture = document.getElementById("lecture").value;
@@ -202,12 +202,11 @@ function displayDetails() {
   cell5.classList.add("custom-td");
 
   let surnameString = `<p id="surname${id}" class="fw-bold m-2">${surname}</p>`;
-  let emailString = `<p id="email${id}" class="mb-1">${email}</p>`; // string interpoleration
+  let emailString = `<p id="email${id}" class="mb-1">${email}</p>`; // string interpolation
   let lectureString = `<p id="lecture${id}" class="mb-1">${lecture}</p>`;
   let studyClassString = `<p id="studyClass${id}" class="mb-1">${studyClass}</p>`;
-  let editButtonString = `<button onclick="window.currentId = ${id}" id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
-  let deleteButtonString = `<button onclick="delete"('${id}') id="delete${id}" type="button" class="btn btn-danger deleteButton">Delete</button>`;
-  
+  let editButtonString = `<button onclick="window.currentId = ${id}; emptyFields()" id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
+  let deleteButtonString = `<button onclick="deleteTarget('${id}')" id="delete${id}" type="button" class="btn btn-danger deleteButton">Delete</button>`;
   cell1.innerHTML = surnameString;
   cell2.innerHTML = emailString;
   cell3.innerHTML = lectureString;
