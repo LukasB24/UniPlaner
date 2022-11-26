@@ -6,20 +6,21 @@ let calcScrollValue = () => {
     let pos = document.documentElement.scrollTop;
     let calcHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     let scrollValue = Math.round((pos * 100) / calcHeight);
-    console.log(calcHeight);
     
-    if(pos > 100){
-        scrollProgress.style.display = "grid";
-    }
-    else{
-        scrollProgress.style.display = "none";
-    }
-
-    scrollProgress.addEventListener("click", () =>{
-        document.documentElement.scrollTop = 0;
-    });
+    if(scrollProgress != null) {
+        if(pos > 100){
+            scrollProgress.style.display = "grid";
+        }
+        else{
+            scrollProgress.style.display = "none";
+        }
     
-    scrollProgress.style.background = `conic-gradient(#03cc65 ${scrollValue}%, #d7d7d7 ${scrollValue}%)`
+        scrollProgress.addEventListener("click", () =>{
+            document.documentElement.scrollTop = 0;
+        });
+        
+        scrollProgress.style.background = `conic-gradient(#03cc65 ${scrollValue}%, #d7d7d7 ${scrollValue}%)`
+    }
 }
 
 window.onscroll = calcScrollValue;
@@ -31,27 +32,30 @@ window.onload = calcScrollValue;
 
 
 
-// Memory Logic
+// CRUD LOGIC
 
 window.onload = read;
+//window.onload = localStorage.clear();
 
 var submit = document.getElementById('submit');
-
+var editButtonSubmit = document.getElementById("editButtonSubmit");
 submit.addEventListener("click", create);
 submit.addEventListener("click", displayDetails);
+editButtonSubmit.addEventListener("click", edit);
+
+
+
+
+////////////////
+//// TO DO ////
+//////////////
 
 /*
-var clear = document.getElementById('clear');
-
-clear.addEventListener("click", deleteTarget);
-clear.addEventListener("click", deleteDetails);
-
-var edit = document.getElementById('edit');
-edit.addEventListener("click", update);
-edit.addEventListener("click", editDetails);
+- Wenn man "editieren" drückt soll die Änderung sofort sichtbar sein (aktuell erst nach Neuladen der Seite)
+- Wenn man "Delete" drückt soll die entsprechende Zeile sofort gelöscht werden (aktuell erst nach Neuladen der Seite)
 */
 
-var row = 1;
+var row = 6; // auf 6, da bisher 5 hartcodierte Dozenten
 
 var entries = getEntries();
 
@@ -77,8 +81,7 @@ function create() {
         var lecturer = new Lecturer(id, lastname, email, lecture, studyClass)
         entries.push(lecturer);
         localStorage.setItem("entries", JSON.stringify(entries));
-    }
-    //document.getElementById("id").value = id;  
+    } 
 }
 
 
@@ -88,90 +91,73 @@ function read() {
     if(entries != null) {
         for(i = 0; i < entries.length; i++) {
             if(entries[i] != null) {
-                let row = document.createElement("tr");
-                //let id = document.createElement("td");
-                let lastnameTd = document.createElement("td");
-                let lastname = document.createElement("p");
-                let emailTd = document.createElement("td");
-                let email = document.createElement("p");
-                let lectureTd = document.createElement("td");
-                let lecture = document.createElement("p")
-                let studyClassTd = document.createElement("td");
-                let studyClass = document.createElement("p");
-                let buttonsTd = document.createElement("td");
-                let editButton = document.createElement("button")
-                let deleteButton = document.createElement("button");
+                var surname = entries[i].lastname;
+                let email = entries[i].email;
+                let lecture = entries[i].lecture;
+                let studyClass = entries[i].studyClass;
+                let id = entries[i].id;
 
-                editButton.setAttribute("type", "button");
-                editButton.setAttribute("class", "btn btn-success");
-                editButton.setAttribute("data-toggle", "modal");
-                editButton.setAttribute("data-target", "#edit");
-                editButton.innerHTML = "Edit";
-                editButton.classList.add("editButton");
+                var display = document.getElementById('lecturerTable');
+                var newRow = display.insertRow(row);
+
+                var cell1 = newRow.insertCell(0);
+                var cell2 = newRow.insertCell(1);
+                let cell3 = newRow.insertCell(2);
+                let cell4 = newRow.insertCell(3);
+                let cell5 = newRow.insertCell(4);
+                cell5.classList.add("custom-td");
+
+                let surnameString = `<p id="surname${id}" class="fw-bold m-2">${surname}</p>`;
+                let emailString = `<p id="email${id}" class="mb-1">${email}</p>`; // string interpolation
+                let lectureString = `<p id="lecture${id}" class="mb-1">${lecture}</p>`;
+                let studyClassString = `<p id="studyClass${id}" class="mb-1">${studyClass}</p>`;
+                let editButtonString = `<button onclick="window.currentId = ${id}; emptyFields()" id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
+                let deleteButtonString = `<button onclick="deleteTarget('${id}')" id="delete${id}" type="button" class="btn btn-danger deleteButton">Delete</button>`;
                 
-                deleteButton.setAttribute("type", "button");
-                deleteButton.setAttribute("class", "btn btn-danger");
-                deleteButton.innerHTML = "Delete";
-                deleteButton.classList.add("deleteButton")
+                cell1.innerHTML = surnameString;
+                cell2.innerHTML = emailString;
+                cell3.innerHTML = lectureString;
+                cell4.innerHTML = studyClassString;
+                cell5.innerHTML = editButtonString + deleteButtonString;
 
-                row.classList.add("custom-rows");
-                lastname.className = "fw-bold m-2";
-                lastnameTd.className = "fw-bold m-2";
-                lastname.innerHTML = entries[i].lastname;
+                row++;
 
-                email.className = "mb-1";
-                emailTd.className = "mb-1";
-                email.innerHTML = entries[i].email;
-
-                lecture.className = "mb-1";
-                lectureTd.className = "mb-1";
-                lecture.innerHTML = entries[i].lecture;
-
-                studyClass.className = "mb-1";
-                studyClassTd.className = "mb-1";
-                studyClass.innerHTML = entries[i].studyClass;
-
-                buttonsTd.classList.add("custom-td");
-
-                lecturerTable.appendChild(row);
-                row.appendChild(lastnameTd);
-                lastnameTd.appendChild(lastname);
-                row.appendChild(emailTd);
-                emailTd.appendChild(email);
-                row.appendChild(lectureTd);
-                lectureTd.appendChild(lecture);
-                row.appendChild(studyClassTd);
-                studyClassTd.appendChild(studyClass);
-
-                row.appendChild(buttonsTd);
-                buttonsTd.appendChild(editButton);
-                buttonsTd.appendChild(deleteButton);
             }
         }
     }
 }
 
-/*
-function update() {
-    let lastname = document.getElementById("surname").value;
-    let id = document.getElementById("id").value;
-    id = parseInt(id);
+function emptyFields() {
+    document.getElementById("surnameEdit").value = "";
+    document.getElementById("emailEdit").value = "";
+    document.getElementById("lectureEdit").value = "";
+    document.getElementById("studyClassEdit").value = "";
+}
 
-    var target = entries[findEntry(id)];
-    target.lastname = lastname;
+
+function edit() {
+    let id = window.currentId;
+    let entries = getEntries();
+    let index = findEntry(id);
+    let entry = entries[index];
+    entry.lastname = document.getElementById('surnameEdit').value;
+    entry.email = document.getElementById("emailEdit").value;
+    entry.lecture = document.getElementById("lectureEdit").value;
+    entry.studyClass = document.getElementById("studyClassEdit").value;
+    entries[index] = entry;
+
     localStorage.setItem("entries", JSON.stringify(entries));
 }
-*/
-/*
-function deleteTarget() {
+
+
+function deleteTarget(id) {
     let entries = getEntries();
-    let id = document.getElementById("id").value;
     id = parseInt(id);
     let index = findEntry(id);
     delete entries[index];
     localStorage.setItem("entries", JSON.stringify(entries));
 }
-*/
+
 
 function getEntries() {
     var entries = localStorage.getItem("entries")
@@ -226,7 +212,6 @@ function findEntry(id) {
 
 function displayDetails() {
 
-  //var name = document.getElementById('name').value;
   var surname = document.getElementById('surname').value;
   let email = document.getElementById('email').value;
   let lecture = document.getElementById("lecture").value;
@@ -254,9 +239,9 @@ function displayDetails() {
   let emailString = `<p id="email${id}" class="mb-1">${email}</p>`; // string interpoleration
   let lectureString = `<p id="lecture${id}" class="mb-1">${lecture}</p>`;
   let studyClassString = `<p id="studyClass${id}" class="mb-1">${studyClass}</p>`;
-  let editButtonString = `<button id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
-  let deleteButtonString = `<button id="delete${id}" type="button" class="btn btn-danger deleteButton">Delete</button>`;
-
+  let editButtonString = `<button onclick="window.currentId = ${id}" id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
+  let deleteButtonString = `<button onclick="delete"('${id}') id="delete${id}" type="button" class="btn btn-danger deleteButton">Delete</button>`;
+  
   cell1.innerHTML = surnameString;
   cell2.innerHTML = emailString;
   cell3.innerHTML = lectureString;
@@ -265,6 +250,8 @@ function displayDetails() {
 
   row++;
 }
+
+
 /*
 function deleteDetails() {
 
