@@ -7,7 +7,8 @@ var submit = document.getElementById('submit');
 var editButtonSubmit = document.getElementById("editButtonSubmit");
 submit.addEventListener("click", create);
 submit.addEventListener("click", displayDetails);
-editButtonSubmit.addEventListener("click", edit);
+editButtonSubmit.addEventListener("click", edit)
+editButtonSubmit.addEventListener("click", editDetails);
 
 
 
@@ -27,12 +28,14 @@ var entries = getEntries();
 
 var lecturerTable = document.getElementById("lecturerTable");
 
-function Lecturer(id, lastname, email, lecture, studyClass){
-    this.id = id;
-    this.lastname = lastname;
-    this.email = email;
-    this.lecture = lecture;
-    this.studyClass = studyClass;
+class Lecturer {
+    constructor(id, lastname, email, lecture, studyClass) {
+        this.id = id;
+        this.lastname = lastname;
+        this.email = email;
+        this.lecture = lecture;
+        this.studyClass = studyClass;
+    }
 }
 
 function create() {
@@ -56,7 +59,7 @@ function read() {
 
     if(entries != null) {
         for(i = 0; i < entries.length; i++) {
-            if(entries[i] != null) {
+            //if(entries[i] != null) {
                 var surname = entries[i].lastname;
                 let email = entries[i].email;
                 let lecture = entries[i].lecture;
@@ -77,8 +80,8 @@ function read() {
                 let emailString = `<p id="email${id}" class="mb-1">${email}</p>`; // string interpolation
                 let lectureString = `<p id="lecture${id}" class="mb-1">${lecture}</p>`;
                 let studyClassString = `<p id="studyClass${id}" class="mb-1">${studyClass}</p>`;
-                let editButtonString = `<button onclick="window.currentId = ${id}; emptyFields()" id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
-                let deleteButtonString = `<button onclick="deleteTarget('${id}')" id="delete${id}" type="button" class="btn btn-danger deleteButton">Delete</button>`;
+                let editButtonString = `<button onclick="window.currentId = ${id}; emptyFields();" id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
+                let deleteButtonString = `<button onclick="deleteTarget('${id}'); deleteDetails()" id="delete${id}" type="button" class="btn btn-danger deleteButton">Delete</button>`;
                 
                 cell1.innerHTML = surnameString;
                 cell2.innerHTML = emailString;
@@ -88,7 +91,7 @@ function read() {
 
                 row++;
 
-            }
+            //}
         }
     }
 }
@@ -119,8 +122,7 @@ function edit() {
 function deleteTarget(id) {
     let entries = getEntries();
     id = parseInt(id);
-    let index = findEntry(id);
-    delete entries[index];
+    entries = entries.filter((i) => {return i.id != id});
     localStorage.setItem("entries", JSON.stringify(entries));
 }
 
@@ -146,12 +148,12 @@ function createID() {
     if(entries != null) {
         while(!valid){
             for(i=0; i<entries.length; i++) {
-                if(entries[i] != null) {
+                //if(entries[i] != null) {
                     if(entries[i].id === id) {
                         id = rand()
                         break;
                     }
-                }
+                //}
             }
             valid = true;
         }
@@ -167,11 +169,11 @@ function findEntry(id) {
     let entries = getEntries();
     if(entries != null){
         for(i=0; i < entries.length; i++) {
-            if(entries[i] != null){
+            //if(entries[i] != null){
                 if(entries[i].id === id) {
                     return i;
                 }
-            }
+            //}
         }
     }
 }
@@ -205,8 +207,9 @@ function displayDetails() {
   let emailString = `<p id="email${id}" class="mb-1">${email}</p>`; // string interpolation
   let lectureString = `<p id="lecture${id}" class="mb-1">${lecture}</p>`;
   let studyClassString = `<p id="studyClass${id}" class="mb-1">${studyClass}</p>`;
-  let editButtonString = `<button onclick="window.currentId = ${id}; emptyFields()" id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
-  let deleteButtonString = `<button onclick="deleteTarget('${id}')" id="delete${id}" type="button" class="btn btn-danger deleteButton">Delete</button>`;
+  let editButtonString = `<button onclick="window.currentId = ${id}; emptyFields();" id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
+  let deleteButtonString = `<button onclick="deleteTarget('${id}'); deleteDetails()" id="delete${id}" type="button" class="btn btn-danger deleteButton">Delete</button>`;
+  
   cell1.innerHTML = surnameString;
   cell2.innerHTML = emailString;
   cell3.innerHTML = lectureString;
@@ -216,6 +219,39 @@ function displayDetails() {
   row++;
 }
 
+
+//ADDED DELETE METHOD
+function deleteDetails() {
+
+    // event.target will be the input element.
+    var td = event.target.parentNode; 
+    var tr = td.parentNode; // the row to be removed
+    tr.parentNode.removeChild(tr);
+}
+  
+  //ADDED EDIT METHOD
+function editDetails() {
+    //alert("Input new values to change current details, then click on 'EDIT' button");
+    let name = document.getElementById('surnameEdit').value;
+    let email = document.getElementById('emailEdit').value;
+    let lecture = document.getElementById("lectureEdit").value;
+    let studyClass = document.getElementById("studyClassEdit").value;
+
+    //var id = document.getElementById('id').value;
+
+    if (!name || !email || !lecture || !studyClass) {
+        alert("The values should not be blank in order to edit existing entries");
+        return;
+    }
+  
+    // event.target will be the input element.
+    var td = event.target.parentNode; 
+    var tr = td.parentNode; // the row to be removed
+    tr.cells[0].innerHTML = name; //document.getElementById('surnameEdit').value;
+    tr.cells[1].innerHTML = email; //document.getElementById('emailEdit').value 
+    tr.cells[2].innerHTML = lecture; //document.getElementById('lectureEdit').value 
+    tr.cells[3].innerHTML = studyClass; //document.getElementById('studyClassEdit').value
+  }
 
 /*
 function deleteDetails() {
