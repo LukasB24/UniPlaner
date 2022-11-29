@@ -66,27 +66,27 @@
             <div class="modal-body">
                 <figure class="text-center">
                     <p class="fw-bold">Vorlesungsname</p>
-                    <textarea class="form-control" placeholder="Name der Vorlesung" id="floatingTextarea"></textarea>
+                    <textarea class="form-control" placeholder="Name der Vorlesung" id="lecturename"></textarea>
                     <p class="fw-bold">Modulname</p>
-                    <textarea class="form-control" placeholder="Name des Moduls" id="floatingTextarea"></textarea>
+                    <textarea class="form-control" placeholder="Name des Moduls" id="modulname"></textarea>
                     <p class="fw-bold">Dauer</p>
-                    <textarea class="form-control" type="text" placeholder="Hier eingeben" id="floatingTextarea"></textarea>
+                    <textarea class="form-control" type="text" placeholder="Hier eingeben" id="duration"></textarea>
                     <p class="fw-bold">Datum</p>
                     
                     <div class="input-group date" data-provide="datepicker">
-                      <input type="text" class="form-control" placeholder="dd/mm/yy">
+                      <input id="lectureDate" type="text" class="form-control" placeholder="dd/mm/yy">
                       <div class="input-group-addon">
                           <span class="glyphicon glyphicon-th"></span>
                       </div>
                     </div>
                     
                     <p class="fw-bold">Dozent</p>
-                    <textarea class="form-control" placeholder="Hier eingeben" id="floatingTextarea"></textarea>
+                    <textarea class="form-control" placeholder="Hier eingeben" id="lecturer"></textarea>
                     <p class="fw-bold">Studiengang</p>
-                    <textarea class="form-control" placeholder="Hier eingeben" id="floatingTextarea"></textarea>
+                    <textarea class="form-control" placeholder="Hier eingeben" id="studyClass"></textarea>
                     
                     <div class="d-grid gap-4 col-6 mt-3 mx-auto">
-                      <button class="btn btn-success" type="button" data-toggle="modal" data-target="#add">Hinzufügen</button>
+                      <button id="submit" class="btn btn-success" type="button" data-toggle="modal" data-target="#add">Hinzufügen</button>
                     </div>
                 </figure>
             </div>
@@ -104,27 +104,27 @@
           <div class="modal-body">
               <figure class="text-center">
                   <p class="fw-bold">Vorlesungsname</p>
-                  <textarea class="form-control" placeholder="Name der Vorlesung" id="floatingTextarea"></textarea>
+                  <textarea class="form-control" placeholder="Name der Vorlesung" id="lecturenameEdit"></textarea>
                   <p class="fw-bold">Modulname</p>
-                  <textarea class="form-control" placeholder="Name des Moduls" id="floatingTextarea"></textarea>
+                  <textarea class="form-control" placeholder="Name des Moduls" id="modulnameEdit"></textarea>
                   <p class="fw-bold">Dauer</p>
-                  <textarea class="form-control" type="text" placeholder="Hier eingeben" id="floatingTextarea"></textarea>
+                  <textarea class="form-control" type="text" placeholder="Hier eingeben" id="durationEdit"></textarea>
                   <p class="fw-bold">Datum</p>
                   
                   <div class="input-group date" data-provide="datepicker">
-                    <input type="text" class="form-control" placeholder="dd/mm/yy">
+                    <input id="lectureDateEdit" type="text" class="form-control" placeholder="dd/mm/yy">
                     <div class="input-group-addon">
                         <span class="glyphicon glyphicon-th"></span>
                     </div>
                   </div>
                   
                   <p class="fw-bold">Dozent</p>
-                  <textarea class="form-control" placeholder="Hier eingeben" id="floatingTextarea"></textarea>
+                  <textarea class="form-control" placeholder="Hier eingeben" id="lecturerEdit"></textarea>
                   <p class="fw-bold">Studiengang</p>
-                  <textarea class="form-control" placeholder="Hier eingeben" id="floatingTextarea"></textarea>
+                  <textarea class="form-control" placeholder="Hier eingeben" id="studyClassEdit"></textarea>
                   
                   <div class="d-grid gap-4 col-6 mt-3 mx-auto">
-                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#edit">Editieren</button>
+                    <button id="editButtonSubmit" class="btn btn-success" type="button" data-toggle="modal" data-target="#edit">Editieren</button>
                   </div>
 
               </figure>
@@ -137,7 +137,7 @@
     
     <div class="container my-5 table-custom">
         <div class="shadow-4 rounded-5 overflow-hidden">
-          <table class="table align-middle mb-0 bg-white">
+          <table id="lectureTable" class="table align-middle mb-0 bg-white">
             <thead class="headList">
               <tr>
                 <th>Vorlesungsname</th>
@@ -375,5 +375,5 @@
           </div>
         </footer>
       </body>
-      
+      <script src="js/vorlesungenScript.js"></script>
       </html>

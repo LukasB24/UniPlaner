@@ -37,7 +37,7 @@ function create() {
         var entries = getEntries();
         var lecturer = new Lecturer(id, lastname, email, lecture, studyClass)
         entries.push(lecturer);
-        localStorage.setItem("entries", JSON.stringify(entries));
+        localStorage.setItem("Lecturers", JSON.stringify(entries));
     } 
 }
 
@@ -101,7 +101,7 @@ function edit() {
     entry.studyClass = document.getElementById("studyClassEdit").value;
     entries[index] = entry;
 
-    localStorage.setItem("entries", JSON.stringify(entries));
+    localStorage.setItem("Lecturers", JSON.stringify(entries));
 }
 
 
@@ -109,16 +109,16 @@ function deleteTarget(id) {
     let entries = getEntries();
     id = parseInt(id);
     entries = entries.filter((i) => {return i.id != id});
-    localStorage.setItem("entries", JSON.stringify(entries));
+    localStorage.setItem("Lecturers", JSON.stringify(entries));
 }
 
 
 function getEntries() {
-    var entries = localStorage.getItem("entries")
+    var entries = localStorage.getItem("Lecturers")
 
     if(!entries) {
         entries = [];
-        localStorage.setItem("entries", JSON.stringify(entries));
+        localStorage.setItem("Lecturers", JSON.stringify(entries));
     }
     else {
         entries = JSON.parse(entries);
