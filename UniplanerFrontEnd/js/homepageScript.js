@@ -35,14 +35,13 @@ $(window).on("load", function(){
     
 });
 
-//Navbar collapse
-while(window.screen.width < 1000){
-    const navLinks = document.querySelectorAll('.nav-item')
-    const menuToggle = document.getElementById('navbarNav')
-    const bsCollapse = new bootstrap.Collapse(menuToggle)
-    navLinks.forEach((l) => {
-        l.addEventListener('click', () => { bsCollapse.toggle() })
-        })
-}
 
-// Habe deinen Code wieder eingefügt
+
+//Small-screen Navbar collapse
+
+const navLinks = document.querySelectorAll('.nav-item')
+const menuToggle = document.getElementById('navbarNav')
+const bsCollapse = new bootstrap.Collapse(menuToggle)
+navLinks.forEach((l) => {
+    l.addEventListener('click', () => { bsCollapse.toggle() })
+})
