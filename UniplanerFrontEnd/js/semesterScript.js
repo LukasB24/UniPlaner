@@ -14,30 +14,30 @@ var row = 6; // auf 6, da bisher 5 hartcodierte Dozenten
 
 var entries = getEntries();
 
-var lecturerTable = document.getElementById("lecturerTable");
+var lecturerTable = document.getElementById("semesterTable");
 
-class Lecturer {
-    constructor(id, lastname, email, lecture, studyClass) {
+class Semester {
+    constructor(id, start, end, name, studyClass) {
         this.id = id;
-        this.lastname = lastname;
-        this.email = email;
-        this.lecture = lecture;
+        this.name = name;
+        this.start = start;
+        this.end = end;
         this.studyClass = studyClass;
     }
 }
 
 function create() {
-    let lastname = document.getElementById("surname").value;
+    let name = document.getElementById("name").value;
     let id = createID();
-    let email = document.getElementById("email").value;
-    let lecture = document.getElementById("lecture").value;
+    let start = document.getElementById("start").value;
+    let end = document.getElementById("end").value;
     let studyClass = document.getElementById("studyClass").value;
 
-    if(lastname != ""){
+    if(name != "" && start != "" && end != "" && studyClass != ""){
         var entries = getEntries();
-        var lecturer = new Lecturer(id, lastname, email, lecture, studyClass)
-        entries.push(lecturer);
-        localStorage.setItem("entries", JSON.stringify(entries));
+        var semester = new Semester(id, start, end, name, studyClass);
+        entries.push(semester);
+        localStorage.setItem("semesters", JSON.stringify(entries));
     } 
 }
 
@@ -47,13 +47,13 @@ function read() {
 
     if(entries != null) {
         for(i = 0; i < entries.length; i++) {
-            var surname = entries[i].lastname;
-            let email = entries[i].email;
-            let lecture = entries[i].lecture;
+            var name = entries[i].name;
+            let start = entries[i].start;
+            let end = entries[i].end;
             let studyClass = entries[i].studyClass;
             let id = entries[i].id;
 
-            var display = document.getElementById('lecturerTable');
+            var display = document.getElementById('semesterTable');
             var newRow = display.insertRow(row);
 
             var cell1 = newRow.insertCell(0);
@@ -61,18 +61,18 @@ function read() {
             let cell3 = newRow.insertCell(2);
             let cell4 = newRow.insertCell(3);
             let cell5 = newRow.insertCell(4);
-            cell5.classList.add("custom-td");
+            //cell5.classList.add("custom-td");
 
-            let surnameString = `<p id="surname${id}" class="fw-bold m-2">${surname}</p>`;
-            let emailString = `<p id="email${id}" class="mb-1">${email}</p>`; // string interpolation
-            let lectureString = `<p id="lecture${id}" class="mb-1">${lecture}</p>`;
-            let studyClassString = `<p id="studyClass${id}" class="mb-1">${studyClass}</p>`;
+            let nameString = `<p id="name${id}" class="m-2">${name}</p>`;
+            let startString = `<p id="start${id}" class="m-2">${start}</p>`; // string interpolation
+            let endString = `<p id="end${id}" class="m-2">${end}</p>`;
+            let studyClassString = `<p id="studyClass${id}" class="m-2">${studyClass}</p>`;
             let editButtonString = `<button onclick="window.currentId = ${id}; emptyFields();" id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
             let deleteButtonString = `<button onclick="deleteTarget('${id}'); deleteDetails()" id="delete${id}" type="button" class="btn btn-danger deleteButton">Delete</button>`;
             
-            cell1.innerHTML = surnameString;
-            cell2.innerHTML = emailString;
-            cell3.innerHTML = lectureString;
+            cell1.innerHTML = startString;
+            cell2.innerHTML = endString;
+            cell3.innerHTML = nameString;
             cell4.innerHTML = studyClassString;
             cell5.innerHTML = editButtonString + deleteButtonString;
 
@@ -82,9 +82,9 @@ function read() {
 }
 
 function emptyFields() {
-    document.getElementById("surnameEdit").value = "";
-    document.getElementById("emailEdit").value = "";
-    document.getElementById("lectureEdit").value = "";
+    document.getElementById("nameEdit").value = "";
+    document.getElementById("startEdit").value = "";
+    document.getElementById("endEdit").value = "";
     document.getElementById("studyClassEdit").value = "";
 }
 
@@ -95,13 +95,13 @@ function edit() {
     let index = findEntry(id);
     let entry = entries[index];
     
-    entry.lastname = document.getElementById('surnameEdit').value;
-    entry.email = document.getElementById("emailEdit").value;
-    entry.lecture = document.getElementById("lectureEdit").value;
+    entry.name = document.getElementById('nameEdit').value;
+    entry.start = document.getElementById("startEdit").value;
+    entry.end = document.getElementById("endEdit").value;
     entry.studyClass = document.getElementById("studyClassEdit").value;
     entries[index] = entry;
 
-    localStorage.setItem("entries", JSON.stringify(entries));
+    localStorage.setItem("semesters", JSON.stringify(entries));
 }
 
 
@@ -109,16 +109,16 @@ function deleteTarget(id) {
     let entries = getEntries();
     id = parseInt(id);
     entries = entries.filter((i) => {return i.id != id});
-    localStorage.setItem("entries", JSON.stringify(entries));
+    localStorage.setItem("semesters", JSON.stringify(entries));
 }
 
 
 function getEntries() {
-    var entries = localStorage.getItem("entries")
+    var entries = localStorage.getItem("semesters")
 
     if(!entries) {
         entries = [];
-        localStorage.setItem("entries", JSON.stringify(entries));
+        localStorage.setItem("semesters", JSON.stringify(entries));
     }
     else {
         entries = JSON.parse(entries);
@@ -162,20 +162,20 @@ function findEntry(id) {
 
 function displayDetails() {
 
-  var surname = document.getElementById('surname').value;
-  let email = document.getElementById('email').value;
-  let lecture = document.getElementById("lecture").value;
+  var name = document.getElementById('name').value;
+  let start = document.getElementById('start').value;
+  let end = document.getElementById("end").value;
   let studyClass = document.getElementById("studyClass").value;
   let entries = getEntries();
   let id = entries[entries.length-1].id;
 
-  if (!surname || !email || !lecture || !studyClass) {
+  if (!name || !start || !end || !studyClass) {
     alert("The values should not be blank");
     return;
   }
 
   
-  var display = document.getElementById('lecturerTable');
+  var display = document.getElementById('semesterTable');
   var newRow = display.insertRow(-1);
 
   var cell1 = newRow.insertCell(0);
@@ -183,18 +183,17 @@ function displayDetails() {
   let cell3 = newRow.insertCell(2);
   let cell4 = newRow.insertCell(3);
   let cell5 = newRow.insertCell(4);
-  cell5.classList.add("custom-td");
 
-  let surnameString = `<p id="surname${id}" class="fw-bold m-2">${surname}</p>`;
-  let emailString = `<p id="email${id}" class="mb-1">${email}</p>`; // string interpolation
-  let lectureString = `<p id="lecture${id}" class="mb-1">${lecture}</p>`;
-  let studyClassString = `<p id="studyClass${id}" class="mb-1">${studyClass}</p>`;
+  let nameString = `<p id="name${id}" class="m-2">${name}</p>`;
+  let startString = `<p id="start${id}" class="m-2">${start}</p>`; // string interpolation
+  let endString = `<p id="end${id}" class="m-2">${end}</p>`;
+  let studyClassString = `<p id="studyClass${id}" class="m-2">${studyClass}</p>`;
   let editButtonString = `<button onclick="window.currentId = ${id}; emptyFields();" id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
   let deleteButtonString = `<button onclick="deleteTarget('${id}'); deleteDetails()" id="delete${id}" type="button" class="btn btn-danger deleteButton">Delete</button>`;
-
-  cell1.innerHTML = surnameString;
-  cell2.innerHTML = emailString;
-  cell3.innerHTML = lectureString;
+  
+  cell1.innerHTML = startString;
+  cell2.innerHTML = endString;
+  cell3.innerHTML = nameString;
   cell4.innerHTML = studyClassString;
   cell5.innerHTML = editButtonString + deleteButtonString;
 
@@ -202,29 +201,27 @@ function displayDetails() {
 }
 
 
-//ADDED DELETE METHOD
 function deleteDetails() {
 
-    // event.target will be the input element.
     var td = event.target.parentNode; 
     var tr = td.parentNode; // the row to be removed
     tr.parentNode.removeChild(tr);
 }
   
-  //ADDED EDIT METHOD
+
 function editDetails() {
-    let name = document.getElementById('surnameEdit').value;
-    let email = document.getElementById('emailEdit').value;
-    let lecture = document.getElementById("lectureEdit").value;
+    let name = document.getElementById('nameEdit').value;
+    let start = document.getElementById('startEdit').value;
+    let end = document.getElementById("endEdit").value;
     let studyClass = document.getElementById("studyClassEdit").value;
 
-    if (!name || !email || !lecture || !studyClass) {
+    if (!name || !start || !end || !studyClass) {
         alert("The values should not be blank in order to edit existing entries");
         return;
     }
     
-    document.getElementById("surname" + currentId).innerHTML = name;
-    document.getElementById("email" + currentId).innerHTML = email;
-    document.getElementById("lecture" + currentId).innerHTML = lecture;
+    document.getElementById("name" + currentId).innerHTML = name;
+    document.getElementById("start" + currentId).innerHTML = start;
+    document.getElementById("end" + currentId).innerHTML = end;
     document.getElementById("studyClass" + currentId).innerHTML = studyClass;
   }

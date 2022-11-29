@@ -77,20 +77,20 @@
                 <figure class="text-center">
                     <p class="fw-bold">Semesterbeginn</p>
                     <div class="input-group date mb-3" data-provide="datepicker">
-                        <input type="text" class="form-control" placeholder="dd/mm/yy">
+                        <input id="start" type="text" class="form-control" placeholder="dd/mm/yy">
                         <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                         </div>
                       </div>
                     <p class="fw-bold">Semesterende</p>
                     <div class="input-group date mb-3" data-provide="datepicker">
-                        <input type="text" class="form-control" placeholder="dd/mm/yy">
+                        <input id="end" type="text" class="form-control" placeholder="dd/mm/yy">
                         <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                         </div>
                       </div>
                     <p class="fw-bold">Semstername</p>
-                    <textarea class="form-control" type="text" placeholder="Uhrzeit eingeben" id="floatingTextarea"></textarea>
+                    <textarea class="form-control" type="text" placeholder="Semester eingeben" id="name"></textarea>
 
                     
                     <p class="fw-bold custom">Studiengang</p>
@@ -103,11 +103,11 @@
                                     <li><a href="#">TIF22B</a></li>
                                 </ul>
                             </div>
-                            <input type="text" class="form-control" id="floating-text-area">
+                            <input type="text" class="form-control" id="studyClass">
                         </div>        
                     </form>
                     <div class="d-grid gap-4 col-6 mt-3 mx-auto">
-                      <button class="btn btn-success" type="button" data-toggle="modal" data-target="#add">Hinzufügen</button>
+                      <button id="submit" class="btn btn-success" type="button" data-toggle="modal" data-target="#add">Hinzufügen</button>
                     </div>
 
                     
@@ -128,20 +128,20 @@
               <figure class="text-center">
                   <p class="fw-bold">Semesterbeginn</p>
                   <div class="input-group date mb-3" data-provide="datepicker">
-                    <input type="text" class="form-control" placeholder="dd/mm/yy">
+                    <input id="startEdit" type="text" class="form-control" placeholder="dd/mm/yy">
                     <div class="input-group-addon">
                         <span class="glyphicon glyphicon-th"></span>
                     </div>
                   </div>
                   <p class="fw-bold">Semesterende</p>
                   <div class="input-group date mb-3" data-provide="datepicker">
-                    <input type="text" class="form-control" placeholder="dd/mm/yy">
+                    <input id="endEdit" type="text" class="form-control" placeholder="dd/mm/yy">
                     <div class="input-group-addon">
                         <span class="glyphicon glyphicon-th"></span>
                     </div>
                   </div>
                   <p class="fw-bold">Semestername</p>
-                  <textarea class="form-control mb-3" type="text" placeholder="Hier eingeben" id="floatingTextarea"></textarea>
+                  <textarea class="form-control mb-3" type="text" placeholder="Hier eingeben" id="nameEdit"></textarea>
                   <p class="fw-bold custom">Studiengang</p>
                   <form>
                       <div class="input-group">
@@ -152,12 +152,12 @@
                                   <li><a href="#">TIF22B</a></li>
                               </ul>
                           </div>
-                          <input type="text" class="form-control" id="floating-text-area">
+                          <input type="text" class="form-control" id="studyClassEdit">
                       </div>        
                   </form>
 
                   <div class="d-grid gap-4 col-6 mt-3 mx-auto">
-                    <button class="btn btn-success" type="button" data-toggle="modal" data-target="#edit">Editieren</button>
+                    <button id="editButtonSubmit" class="btn btn-success" type="button" data-toggle="modal" data-target="#edit">Editieren</button>
                   </div>
             
               </figure>
@@ -170,7 +170,7 @@
     
     <div class="container my-5 table-custom">
         <div class="shadow-4 rounded-5">
-          <table class="table align-middle mb-0 bg-white">
+          <table id="semesterTable" class="table align-middle mb-0 bg-white">
             <thead class="headList">
               <tr>
                 <th>Semesterbeginn</th>
@@ -330,5 +330,6 @@
             </div>
           </div>
         </footer>
+<script src="js/semesterScript.js"></script>
 </body>
 </html>
