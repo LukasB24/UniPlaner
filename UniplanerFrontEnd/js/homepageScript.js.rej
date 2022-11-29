@@ -1,0 +1,21 @@
+diff a/UniplanerFrontEnd/js/homepageScript.js b/UniplanerFrontEnd/js/homepageScript.js	(rejected hunks)
+@@ -26,4 +26,16 @@
+ window.onscroll = calcScrollValue;
+ window.onload = calcScrollValue;
+ 
+-//End Scroll-To-Top-Button
+\ No newline at end of file
++//End Scroll-To-Top-Button
++
++//Navbar collapse
++
++
++while(window.screen.width < 1000){
++const navLinks = document.querySelectorAll('.nav-item')
++const menuToggle = document.getElementById('navbarNav')
++const bsCollapse = new bootstrap.Collapse(menuToggle)
++navLinks.forEach((l) => {
++    l.addEventListener('click', () => { bsCollapse.toggle() })
++})
++}
+\ No newline at end of file
