@@ -27,3 +27,10 @@ window.onscroll = calcScrollValue;
 window.onload = calcScrollValue;
 
 //End Scroll-To-Top-Button
+
+//Load-Spinner
+
+$(window).on("load", function(){
+    $(".load-wrap").fadeOut("slow")
+    
+});
