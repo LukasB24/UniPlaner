@@ -466,9 +466,26 @@ h2{
   }
 }
 /**/
-@media(max-width:990px){
+@media(max-width:1090px){
   
   .carousel-caption p{
+    display:none;
+  }
+  .carousel-caption h5{
+    font-size: 5.5vh;
+    color: black;
+  }
+  .carousel-indicators{
+    display: none;
+  }
+  #ueber-uns.spacing {
+    padding-bottom: 0.5vh;
+  }
+  
+}
+
+@media(max-width: 850px){
+  .carousel{
     display:none;
   }
 }
@@ -481,7 +498,6 @@ h2{
     margin-bottom: 30px;
     padding-left: 30px;
   }
-
 }
 
 
