@@ -67,7 +67,7 @@ function read() {
             let emailString = `<p id="email${id}" class="mb-1">${email}</p>`; // string interpolation
             let lectureString = `<p id="lecture${id}" class="mb-1">${lecture}</p>`;
             let studyClassString = `<p id="studyClass${id}" class="mb-1">${studyClass}</p>`;
-            let editButtonString = `<button onclick="window.currentId = ${id}; emptyFields();" id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
+            let editButtonString = `<button onclick="window.currentId = ${id}; currentFields();" id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
             let deleteButtonString = `<button onclick="deleteTarget('${id}'); deleteDetails()" id="delete${id}" type="button" class="btn btn-danger deleteButton">Delete</button>`;
             
             cell1.innerHTML = surnameString;
@@ -81,11 +81,11 @@ function read() {
     }
 }
 
-function emptyFields() {
-    document.getElementById("surnameEdit").value = "";
-    document.getElementById("emailEdit").value = "";
-    document.getElementById("lectureEdit").value = "";
-    document.getElementById("studyClassEdit").value = "";
+function currentFields() {
+    document.getElementById("surnameEdit").value = document.getElementById("surname" + currentId).innerHTML;
+    document.getElementById("emailEdit").value = document.getElementById("email" + currentId).innerHTML;
+    document.getElementById("lectureEdit").value = document.getElementById("lecture" + currentId).innerHTML;
+    document.getElementById("studyClassEdit").value = document.getElementById("studyClass" + currentId).innerHTML;
 }
 
 
@@ -189,7 +189,7 @@ function displayDetails() {
   let emailString = `<p id="email${id}" class="mb-1">${email}</p>`; // string interpolation
   let lectureString = `<p id="lecture${id}" class="mb-1">${lecture}</p>`;
   let studyClassString = `<p id="studyClass${id}" class="mb-1">${studyClass}</p>`;
-  let editButtonString = `<button onclick="window.currentId = ${id}; emptyFields();" id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
+  let editButtonString = `<button onclick="window.currentId = ${id}; currentFields();" id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
   let deleteButtonString = `<button onclick="deleteTarget('${id}'); deleteDetails()" id="delete${id}" type="button" class="btn btn-danger deleteButton">Delete</button>`;
 
   cell1.innerHTML = surnameString;
