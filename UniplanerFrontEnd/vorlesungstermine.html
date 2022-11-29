@@ -66,17 +66,17 @@
             <div class="modal-body">
                 <figure class="text-center">
                     <p class="fw-bold">Vorlesungsname</p>
-                    <textarea class="form-control" placeholder="Name der Vorlesung" id="floatingTextarea"></textarea>
+                    <textarea class="form-control" placeholder="Name der Vorlesung" id="name"></textarea>
                     <p class="fw-bold">Vorlesungsbeginn</p>
-                    <textarea class="form-control" placeholder="Uhrzeit eingeben" id="floatingTextarea"></textarea>
+                    <textarea class="form-control" placeholder="Uhrzeit eingeben" id="start"></textarea>
                     <p class="fw-bold">Vorlesungsende</p>
-                    <textarea class="form-control" type="text" placeholder="Uhrzeit eingeben" id="floatingTextarea"></textarea>
+                    <textarea class="form-control" type="text" placeholder="Uhrzeit eingeben" id="end"></textarea>
                     <p class="fw-bold">Dauer</p>
-                    <textarea class="form-control" placeholder="Vorlesungsdauer" id="floatingTextarea"></textarea>
+                    <textarea class="form-control" placeholder="Vorlesungsdauer" id="duration"></textarea>
                     
                     <p class="fw-bold">Datum</p>
                     <div class="input-group date mb-3" data-provide="datepicker">
-                        <input type="text" class="form-control" placeholder="dd/mm/yy">
+                        <input id="date" type="text" class="form-control" placeholder="dd/mm/yy">
                         <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                         </div>
@@ -92,12 +92,12 @@
                                     <li><a href="#">TIF22B</a></li>
                                 </ul>
                             </div>
-                            <input type="text" class="form-control" id="floating-text-area">
+                            <input type="text" class="form-control" id="studyClass">
                         </div>        
                     </form>
 
                     <div class="d-grid gap-4 col-6 mt-3 mx-auto">
-                      <button class="btn btn-success" type="button" data-toggle="modal" data-target="#add">Hinzufügen</button>
+                      <button id="submit" class="btn btn-success" type="button" data-toggle="modal" data-target="#add">Hinzufügen</button>
                     </div>
 
                     
@@ -117,18 +117,18 @@
           <div class="modal-body">
               <figure class="text-center">
                   <p class="fw-bold">Vorlesungsname</p>
-                  <textarea class="form-control mb-3" placeholder="Name der Vorlesung" id="floatingTextarea"></textarea>
+                  <textarea class="form-control mb-3" placeholder="Name der Vorlesung" id="nameEdit"></textarea>
                   <p class="fw-bold">Vorlesungsbeginn</p>
-                  <textarea class="form-control mb-3" placeholder="Name des Moduls" id="floatingTextarea"></textarea>
+                  <textarea class="form-control mb-3" placeholder="Name des Moduls" id="startEdit"></textarea>
                   <p class="fw-bold">Vorlesungsende</p>
-                  <textarea class="form-control mb-3" type="text" placeholder="Hier eingeben" id="floatingTextarea"></textarea>
+                  <textarea class="form-control mb-3" type="text" placeholder="Hier eingeben" id="endEdit"></textarea>
                   <p class="fw-bold">Dauer</p>
-                  <textarea class="form-control mb-3" placeholder="Hier eingeben" id="floatingTextarea"></textarea>
+                  <textarea class="form-control mb-3" placeholder="Hier eingeben" id="durationEdit"></textarea>
                   
                   
                   <p class="fw-bold ">Datum</p>
                   <div class="input-group date mb-3" data-provide="datepicker">
-                    <input type="text" class="form-control" placeholder="dd/mm/yy">
+                    <input id = "dateEdit" type="text" class="form-control" placeholder="dd/mm/yy">
                     <div class="input-group-addon">
                         <span class="glyphicon glyphicon-th"></span>
                     </div>
@@ -144,12 +144,12 @@
                                     <li><a href="#">TIF22B</a></li>
                                 </ul>
                             </div>
-                            <input type="text" class="form-control" id="floating-text-area">
+                            <input type="text" class="form-control" id="studyClassEdit">
                         </div>        
                     </form>
 
                     <div class="d-grid gap-4 col-6 mt-3 mx-auto">
-                      <button class="btn btn-success" type="button" data-toggle="modal" data-target="#edit">Editieren</button>
+                      <button id="editButtonSubmit" class="btn btn-success" type="button" data-toggle="modal" data-target="#edit">Editieren</button>
                     </div>
               </figure>
           </div>
@@ -161,7 +161,7 @@
     
     <div class="container my-5 table-custom">
         <div class="shadow-4 rounded-5 overflow-hidden">
-          <table class="table align-middle mb-0 bg-white">
+          <table id="lectureDateTable" class="table align-middle mb-0 bg-white">
             <thead class="headList">
               <tr>
                 <th>Vorlesungsname</th>
@@ -250,7 +250,7 @@
                 <td>
                   <div class="d-flex align-items-center">
                     <img
-                         src="assets/InformatikLogo.png"
+                         src="assets/Theoretische InformatikLogo.png"
                          class="rounded-circle"
                          alt=""
                          style="width: 45px; height: 45px"
@@ -321,7 +321,7 @@
                 <td>
                   <div class="d-flex align-items-center">
                     <img
-                         src="assets/MathematikLogo.jpg"
+                         src="assets/MathematikLogo.png"
                          class="rounded-circle"
                          alt=""
                          style="width: 45px; height: 45px"
@@ -397,6 +397,7 @@
             </div>
           </div>
         </footer>
+<script src="js/vorlesungstermineScript.js"></script>
 </body>
 </html>
         
