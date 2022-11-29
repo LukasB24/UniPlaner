@@ -89,7 +89,7 @@ function read() {
             let studyClassString = `<p id="studyClass${id}">${studyClass}</p>`;
             let lectureDateString = `<p id="lectureDate${id}" class="mb-1">${lectureDate}</p>`;
             let lecturerString = `<p id="lecturer${id}">${lecturer}</p>`;
-            let editButtonString = `<button onclick="window.currentId = ${id}; emptyFields();" id="edit${id}" type="button" class="btn btn-success" data-toggle="modal" data-target="#edit">Edit</button>`
+            let editButtonString = `<button onclick="window.currentId = ${id}; currentFields();" id="edit${id}" type="button" class="btn btn-success" data-toggle="modal" data-target="#edit">Edit</button>`
             let deleteButtonString = `<button onclick="deleteTarget('${id}'); deleteDetails()" id="delete${id}" type="button" class="btn btn-danger">Delete</button>`;
             
             cell1.innerHTML = lecturenameString;
@@ -105,13 +105,13 @@ function read() {
     }
 }
 
-function emptyFields() {
-    document.getElementById("lecturenameEdit").value = "";
-    document.getElementById("modulnameEdit").value = "";
-    document.getElementById("durationEdit").value = "";
-    document.getElementById("studyClassEdit").value = "";
-    document.getElementById("lecturerEdit").value = "";
-    document.getElementById("lectureDateEdit").value = "";
+function currentFields() {
+    document.getElementById("lecturenameEdit").value = document.getElementById("lecturename" + currentId).innerHTML;
+    document.getElementById("modulnameEdit").value = document.getElementById("modulname" + currentId).innerHTML;
+    document.getElementById("durationEdit").value = document.getElementById("duration" + currentId).innerHTML;
+    document.getElementById("studyClassEdit").value = document.getElementById("studyClass" + currentId).innerHTML;
+    document.getElementById("lecturerEdit").value = document.getElementById("lecturer" + currentId).innerHTML;
+    document.getElementById("lectureDateEdit").value = document.getElementById("lectureDate" + currentId).innerHTML;
 }
 
 
@@ -235,7 +235,7 @@ function displayDetails() {
     let studyClassString = `<p id="studyClass${id}">${studyClass}</p>`;
     let lectureDateString = `<p id="lectureDate${id}" class="mb-1">${lectureDate}</p>`;
     let lecturerString = `<p id="lecturer${id}">${lecturer}</p>`;
-    let editButtonString = `<button onclick="window.currentId = ${id}; emptyFields();" id="edit${id}" type="button" class="btn btn-success" data-toggle="modal" data-target="#edit">Edit</button>`
+    let editButtonString = `<button onclick="window.currentId = ${id}; currentFields();" id="edit${id}" type="button" class="btn btn-success" data-toggle="modal" data-target="#edit">Edit</button>`
     let deleteButtonString = `<button onclick="deleteTarget('${id}'); deleteDetails()" id="delete${id}" type="button" class="btn btn-danger">Delete</button>`;
     
     cell1.innerHTML = lecturenameString;
