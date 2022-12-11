@@ -235,8 +235,8 @@ function displayDetails() {
     let studyClassString = `<p id="studyClass${id}">${studyClass}</p>`;
     let lectureDateString = `<p id="lectureDate${id}" class="mb-1">${lectureDate}</p>`;
     let lecturerString = `<p id="lecturer${id}">${lecturer}</p>`;
-    let editButtonString = `<button onclick="window.currentId = ${id}; currentFields();" id="edit${id}" type="button" class="btn btn-success" data-toggle="modal" data-target="#edit">Edit</button>`
-    let deleteButtonString = `<button onclick="deleteTarget('${id}'); deleteDetails()" id="delete${id}" type="button" class="btn btn-danger">Delete</button>`;
+    let editButtonString = `<button onclick="window.currentId = ${id}; currentFields();" id="edit${id}" type="button" class="btn btn-success editButton" data-toggle="modal" data-target="#edit">Edit</button>`
+    let deleteButtonString = `<button onclick="deleteTarget('${id}'); deleteDetails()" id="delete${id}" type="button" class="btn btn-danger deleteButton">Delete</button>`;
     
     cell1.innerHTML = lecturenameString;
     cell2.innerHTML = modulString;
